@@ -5,9 +5,10 @@
     <string name="title_section1">胖笔记</string>
     <string name="title_section2">归档</string>
     <string name="title_section3">回收站</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="action_example">新笔记</string>
-    <string name="action_settings">设置</string>
+    <string name="navigation_drawer_open">不知道这是什么</string>
+    <string name="navigation_drawer_close">不知道这是什么</string>
+    <string name="action_new_note">新笔记</string>
+    <string name="action_finish">完成</string>
+    <string name="title_activity_note">新笔记</string>
 
 </resources>

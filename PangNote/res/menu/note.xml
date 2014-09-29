@@ -1,12 +1,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="yi.cui.shenmidepangzi.pangnote.MainActivity" >
+    tools:context="yi.cui.shenmidepangzi.pangnote.NoteActivity" >
 
     <item
-        android:id="@+id/action_new_note"
-        android:title="@string/action_new_note"
-        android:icon="@drawable/ic_action_new_note"
+        android:id="@+id/action_finish"
+        android:title="@string/action_finish"
         app:showAsAction="withText|ifRoom" />
 
 </menu>

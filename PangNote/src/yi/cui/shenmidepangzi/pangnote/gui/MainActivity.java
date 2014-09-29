@@ -1,10 +1,14 @@
 package yi.cui.shenmidepangzi.pangnote.gui;
 
+import java.util.List;
+
 import yi.cui.shenmidepangzi.pangnote.R;
 import yi.cui.shenmidepangzi.pangnote.R.id;
 import yi.cui.shenmidepangzi.pangnote.R.layout;
 import yi.cui.shenmidepangzi.pangnote.R.menu;
 import yi.cui.shenmidepangzi.pangnote.R.string;
+import yi.cui.shenmidepangzi.pangnote.dao.NoteDataSource;
+import yi.cui.shenmidepangzi.pangnote.object.Note;
 import android.app.Activity;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
@@ -13,6 +17,7 @@ import android.support.v4.app.FragmentManager;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -21,6 +26,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 
@@ -41,6 +47,20 @@ public class MainActivity extends ActionBarActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mNavigationDrawerFragment = (NavigationDrawerFragment)
+                getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
+        mTitle = getTitle();
+
+        // Set up the drawer.
+        mNavigationDrawerFragment.setUp(
+                R.id.navigation_drawer,
+                (DrawerLayout) findViewById(R.id.drawer_layout));
+    }
+    
+    @Override
+    protected void onResume() {
+        super.onResume();
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
@@ -102,9 +122,6 @@ public class MainActivity extends ActionBarActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -112,6 +129,11 @@ public class MainActivity extends ActionBarActivity
      * A placeholder fragment containing a simple view.
      */
     public static class PlaceholderFragment extends Fragment {
+    	
+    	private View rootView;
+    	private NoteDataSource ds;
+    	private static int type;
+    	
         /**
          * The fragment argument representing the section number for this
          * fragment.
@@ -127,6 +149,7 @@ public class MainActivity extends ActionBarActivity
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
             fragment.setArguments(args);
+            type = sectionNumber;
             return fragment;
         }
 
@@ -136,7 +159,9 @@ public class MainActivity extends ActionBarActivity
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+            rootView = inflater.inflate(R.layout.fragment_main, container, false);
+            
+            updateList();
             return rootView;
         }
 
@@ -146,6 +171,28 @@ public class MainActivity extends ActionBarActivity
             ((MainActivity) activity).onSectionAttached(
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
+        
+        @Override
+		public void onPause() {
+    		ds.close();
+    		super.onPause();
+    	}
+        
+        @Override
+        public void onResume() {
+        	super.onResume();
+        	
+        	updateList();
+        }
+        
+        private void updateList() {
+        	ds = new NoteDataSource(this.getActivity());
+        	ds.open();
+            ListView mListView = (ListView) rootView.findViewById(R.id.section_label);
+            List<Note> notes = ds.getNotesByType(type);
+        	ArrayAdapter<Note> adapter = new ArrayAdapter<Note>(this.getActivity(),
+        			android.R.layout.simple_list_item_1, notes);
+        	mListView.setAdapter(adapter);
+        }
     }
-
 }

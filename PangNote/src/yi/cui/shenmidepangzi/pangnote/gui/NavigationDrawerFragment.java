@@ -1,11 +1,15 @@
 package yi.cui.shenmidepangzi.pangnote.gui;
 
+import java.util.List;
+
 import yi.cui.shenmidepangzi.pangnote.R;
 import yi.cui.shenmidepangzi.pangnote.R.drawable;
 import yi.cui.shenmidepangzi.pangnote.R.id;
 import yi.cui.shenmidepangzi.pangnote.R.layout;
 import yi.cui.shenmidepangzi.pangnote.R.menu;
 import yi.cui.shenmidepangzi.pangnote.R.string;
+import yi.cui.shenmidepangzi.pangnote.dao.NoteDataSource;
+import yi.cui.shenmidepangzi.pangnote.object.Note;
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
 import android.support.v7.app.ActionBar;
@@ -13,10 +17,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -253,8 +259,10 @@ public class NavigationDrawerFragment extends Fragment {
             return true;
         }
 
-        if (item.getItemId() == R.id.action_example) {
-            Toast.makeText(getActivity(), "Example action.", Toast.LENGTH_SHORT).show();
+        if (item.getItemId() == R.id.action_new_note) {
+            // Create a new activity for users to write their new note
+        	Intent intent = new Intent(this.getActivity(), NoteActivity.class);
+        	this.getActivity().startActivity(intent);
             return true;
         }
 
