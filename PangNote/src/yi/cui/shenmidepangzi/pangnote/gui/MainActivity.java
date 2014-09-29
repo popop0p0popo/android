@@ -1,5 +1,10 @@
-package yi.cui.shenmidepangzi.pangnote;
+package yi.cui.shenmidepangzi.pangnote.gui;
 
+import yi.cui.shenmidepangzi.pangnote.R;
+import yi.cui.shenmidepangzi.pangnote.R.id;
+import yi.cui.shenmidepangzi.pangnote.R.layout;
+import yi.cui.shenmidepangzi.pangnote.R.menu;
+import yi.cui.shenmidepangzi.pangnote.R.string;
 import android.app.Activity;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
