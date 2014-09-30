@@ -132,7 +132,11 @@ public class MainActivity extends ActionBarActivity
     	
     	private View rootView;
     	private NoteDataSource ds;
+    	private List<Note> notes;
     	private static int type;
+    	
+    	private CardListAdapter cardListAdapter;
+        private ListView listView;
     	
         /**
          * The fragment argument representing the section number for this
@@ -160,7 +164,6 @@ public class MainActivity extends ActionBarActivity
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
             rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            
             updateList();
             return rootView;
         }
@@ -188,11 +191,18 @@ public class MainActivity extends ActionBarActivity
         private void updateList() {
         	ds = new NoteDataSource(this.getActivity());
         	ds.open();
-            ListView mListView = (ListView) rootView.findViewById(R.id.section_label);
-            List<Note> notes = ds.getNotesByType(type);
-        	ArrayAdapter<Note> adapter = new ArrayAdapter<Note>(this.getActivity(),
-        			android.R.layout.simple_list_item_1, notes);
-        	mListView.setAdapter(adapter);
+            notes = ds.getNotesByType(type);
+            listView = (ListView) rootView.findViewById(R.id.card_listview);
+            cardListAdapter = new CardListAdapter(this.getActivity().getApplicationContext(), R.layout.list_item_card);
+
+            listView.addHeaderView(new View(this.getActivity()));
+            listView.addFooterView(new View(this.getActivity()));
+
+            for (int i = 0; i < notes.size(); i++) {
+                Note note = notes.get(i);
+                cardListAdapter.add(note);
+            }
+            listView.setAdapter(cardListAdapter);
         }
     }
 }
