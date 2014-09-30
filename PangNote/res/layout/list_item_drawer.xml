@@ -15,22 +15,14 @@
 		android:paddingTop="15dp"
 		android:paddingBottom="15dp"
 		android:paddingRight="15dp"
-		android:background="@drawable/card_background_selector"
 		android:descendantFocusability="afterDescendants">
 
 		<TextView
-			android:id="@+id/line1"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:textColor="@color/card_time"
-			android:textSize="12sp" />
-
-		<TextView
-			android:id="@+id/line2"
+			android:id="@+id/drawer_line"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:textColor="@color/card_content"
-			android:textSize="18sp" />
+			android:textSize="20sp" />
 
 	</LinearLayout>
 </FrameLayout>

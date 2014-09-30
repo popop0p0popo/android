@@ -3,10 +3,6 @@ package yi.cui.shenmidepangzi.pangnote.gui;
 import java.util.List;
 
 import yi.cui.shenmidepangzi.pangnote.R;
-import yi.cui.shenmidepangzi.pangnote.R.id;
-import yi.cui.shenmidepangzi.pangnote.R.layout;
-import yi.cui.shenmidepangzi.pangnote.R.menu;
-import yi.cui.shenmidepangzi.pangnote.R.string;
 import yi.cui.shenmidepangzi.pangnote.dao.NoteDataSource;
 import yi.cui.shenmidepangzi.pangnote.object.Note;
 import android.app.Activity;
@@ -14,20 +10,14 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 
 public class MainActivity extends ActionBarActivity
@@ -42,6 +32,8 @@ public class MainActivity extends ActionBarActivity
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence mTitle;
+    
+    private static int type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,7 +101,13 @@ public class MainActivity extends ActionBarActivity
             // Only show items in the action bar relevant to this screen
             // if the drawer is not showing. Otherwise, let the drawer
             // decide what to show in the action bar.
-            getMenuInflater().inflate(R.menu.main, menu);
+        	if (type == 1) {
+        		getMenuInflater().inflate(R.menu.main, menu);
+        	} else if (type == 2) {
+        		getMenuInflater().inflate(R.menu.archive, menu);
+        	} else if (type == 3) {
+        		getMenuInflater().inflate(R.menu.trash, menu);
+        	}
             restoreActionBar();
             return true;
         }
@@ -121,7 +119,6 @@ public class MainActivity extends ActionBarActivity
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
         return super.onOptionsItemSelected(item);
     }
 
@@ -133,7 +130,6 @@ public class MainActivity extends ActionBarActivity
     	private View rootView;
     	private NoteDataSource ds;
     	private List<Note> notes;
-    	private static int type;
     	
     	private CardListAdapter cardListAdapter;
         private ListView listView;

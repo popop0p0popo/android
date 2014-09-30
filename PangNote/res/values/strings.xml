@@ -9,6 +9,7 @@
     <string name="navigation_drawer_close">不知道这是什么</string>
     <string name="action_new_note">新笔记</string>
     <string name="action_finish">完成</string>
+    <string name="action_empty">清空</string>
     <string name="title_activity_note">新笔记</string>
 
 </resources>
